@@ -16,23 +16,21 @@ public class LevelCreator : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] 
     private GameObject nodePref;
+    [SerializeField]
+    private GameObject planePref;
     [SerializeField] 
-    private GameObject nodeParent;
-    private void Start()
-    {
-        //CreateNodes();
-    }
+    private Transform nodeParent;
+   
     [ContextMenu("CreateNodes")]
     private void CreateNodes()
     {
-      if(transform.childCount > 0)
+      while (nodeParent.childCount  > 0)
       {
-        /*foreach (Transform child in transform.GetComponentInChildren<Transform>())
-        {
-          DestroyImmediate(child);
-        }*/
+        DestroyImmediate(nodeParent.GetChild(0).gameObject);
         
       }
+      GameObject plane = Instantiate(planePref, new Vector3((NODE_GRID_ROW_COUNT * offset)/ 2 - 1, 0, (NODE_GRID_COLUMN_COUNT * offset)/ 2 - 1),Quaternion.identity, nodeParent);
+      plane.transform.localScale = new Vector3(0.2f * NODE_GRID_ROW_COUNT, plane.transform.localScale.y, 0.2f * NODE_GRID_COLUMN_COUNT);
         for(int x = 0; x < NODE_GRID_ROW_COUNT; x++)
         {
             for(int z = 0; z < NODE_GRID_COLUMN_COUNT; z++)
