@@ -1,9 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TurretScript : MonoBehaviour
 { 
+    [Header("Bullet settings")]
+    [SerializeField]
+    private GameObject bulletPref;
+    [SerializeField]
+    private Transform[] gunBarrel;
+    [SerializeField]
+    private float rechargeTime = 1f;
+    private bool isSecondBarrel;
+    private bool canShoot = true;
     private Transform target;
     [SerializeField]
     private float range = 3f;
@@ -15,24 +25,38 @@ public class TurretScript : MonoBehaviour
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, range);
     }
-    private void FindTarget()
+    private Transform FindTarget()
     {
-        if(targetsInRange == null) return;
-        float distance = 0;
+        if(targetsInRange == null) return null;
+        Transform newTarget = targetsInRange.First();
+        RemoveNullObjects();
 
         foreach ( Transform t in targetsInRange)
-        {
+        {  
             float distanceToEnemy = Vector3.Distance(transform.position, t.position);
-            if(distanceToEnemy < distance)
+            float distanceToPrevEnemy = Vector3.Distance(transform.position, newTarget.position);
+            if(distanceToEnemy < distanceToPrevEnemy)
             {
-                distance = distanceToEnemy;
-                target = t;
+                
+                newTarget = t;
+            }
+            
+        }
+       return newTarget;
+    }
+    private void RemoveNullObjects()
+    {
+        var nullObjects = new List<Transform>();
+        foreach(Transform t in targetsInRange)
+        {
+            if(t == null)
+            {
+                nullObjects.Add(t);
             }
         }
-        if(distance > range)
+        foreach(Transform t in nullObjects)
         {
-            target = null;
-            return;
+            targetsInRange.Remove(t);
         }
     }
     private void OnTriggerEnter(Collider col)
@@ -53,8 +77,7 @@ public class TurretScript : MonoBehaviour
     {
         if(col.tag == "Enemy")
         {
-            FindTarget();
-            Debug.Log($"{col.name} is triggered");
+           target = FindTarget();
         }
     }
     private void Start()
