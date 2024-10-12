@@ -5,15 +5,16 @@ using UnityEngine;
 
 public class TurretScript : MonoBehaviour
 { 
-    [Header("Bullet settings")]
+    [Header("Shot settings")]
     [SerializeField]
     private GameObject bulletPref;
     [SerializeField]
     private Transform[] gunBarrel;
     [SerializeField]
     private float rechargeTime = 1f;
-    private bool isSecondBarrel;
-    private bool canShoot = true;
+   
+   
+    private int currentBarrelIndex = 0;
     private Transform target;
     [SerializeField]
     private float range = 3f;
@@ -25,11 +26,41 @@ public class TurretScript : MonoBehaviour
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, range);
     }
+    private void Update()
+    {
+        if(target != null)
+        {
+            transform.LookAt(target);
+           
+        }
+    }
+    private IEnumerator Shoot( Transform currentTarget)
+    {
+        while(currentTarget !=null)
+        {
+        yield return new WaitForSeconds(rechargeTime);
+        GameObject bullet = Instantiate(bulletPref, gunBarrel [currentBarrelIndex]);
+        bulletPref.transform.parent = null;
+
+        BulletScript bulletscript = bullet.GetComponent<BulletScript>();
+        bulletscript.Target = target;
+
+        currentBarrelIndex++;
+        if(currentBarrelIndex == gunBarrel.Length)
+        {
+            currentBarrelIndex = 0;
+        }
+        }
+
+       
+
+    }
     private Transform FindTarget()
     {
         if(targetsInRange == null) return null;
-        Transform newTarget = targetsInRange.First();
         RemoveNullObjects();
+        Transform newTarget = targetsInRange.First();
+        
 
         foreach ( Transform t in targetsInRange)
         {  
@@ -38,6 +69,8 @@ public class TurretScript : MonoBehaviour
             if(distanceToEnemy < distanceToPrevEnemy)
             {
                 
+                StopCoroutine(Shoot( newTarget));
+                StartCoroutine(Shoot( t));
                 newTarget = t;
             }
             
@@ -64,6 +97,11 @@ public class TurretScript : MonoBehaviour
         if(col.tag == "Enemy")
         {
             targetsInRange.Add(col.transform);
+            if(targetsInRange == null)
+            {
+                StartCoroutine(Shoot( col.transform));
+            }
+            
         }
     }
     private void OnTriggerExit(Collider col)
@@ -71,6 +109,7 @@ public class TurretScript : MonoBehaviour
         if(col.tag == "Enemy")
         {
             targetsInRange.Remove(col.transform);
+            
         }
     }
     private void OnTriggerStay(Collider col)
@@ -85,11 +124,5 @@ public class TurretScript : MonoBehaviour
         //InvokeRepeating("FindTarget", 0f, 0.3f);
     }
 
-    private void Update()
-    {
-        if(target != null)
-        {
-            transform.LookAt(target);
-        }
-    }
+    
 }
