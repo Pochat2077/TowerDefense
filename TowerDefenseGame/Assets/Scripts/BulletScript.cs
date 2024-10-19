@@ -9,6 +9,9 @@ public class BulletScript : MonoBehaviour
     private Rigidbody rb;
     private float speed = 2f;
     private Transform target;
+    [SerializeField] 
+    private int damage = 10;
+    private uint health;
     public Transform Target 
     {
         set
@@ -41,8 +44,13 @@ public class BulletScript : MonoBehaviour
     }
     private void OnTriggerEnter(Collider col)
     {
+        if(col.tag == "Ground")
+        {
+            Destroy(gameObject);
+        }
         if(col.tag == "Enemy")
         {
+            //col.GetComponent<Enemy>().GetDamage(damage);
             Destroy(gameObject);
             
         }

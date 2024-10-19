@@ -205,7 +205,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPref: {fileID: 8565959841878888180, guid: 5622b9812e061ad4596855f9b325bae4, type: 3}
-  gunBarrel: []
+  gunBarrel:
+  - {fileID: 5612803615041318230}
+  - {fileID: 3209137031195343762}
   rechargeTime: 1
   range: 2.4
 --- !u!1001 &2857319908862258573
