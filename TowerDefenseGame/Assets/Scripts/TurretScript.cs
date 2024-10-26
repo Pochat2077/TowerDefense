@@ -47,8 +47,9 @@ public class TurretScript : MonoBehaviour
         {
 
         yield return new WaitUntil(() => target !=null);
-        
-        GameObject bullet = Instantiate(bulletPref, gunBarrel [currentBarrelIndex]);
+        if(IsTargetLocked())
+        {
+            GameObject bullet = Instantiate(bulletPref, gunBarrel [currentBarrelIndex]);
         bulletPref.transform.parent = null;
 
         BulletScript bulletscript = bullet.GetComponent<BulletScript>();
@@ -59,6 +60,9 @@ public class TurretScript : MonoBehaviour
         {
             currentBarrelIndex = 0;
         }
+        }
+        
+        
         yield return new WaitForSeconds(rechargeTime);
         }
 
@@ -104,6 +108,18 @@ public class TurretScript : MonoBehaviour
         {
             targetsInRange.Remove(t);
         }
+    }
+    private bool IsTargetLocked()
+    {
+        float angle = Quaternion.Angle(transform.rotation, target.rotation);
+        if(angle > 20 && angle < 160)
+        {
+            return true;
+        }
+        
+        
+        return false;
+        
     }
     private void OnTriggerEnter(Collider col)
     {

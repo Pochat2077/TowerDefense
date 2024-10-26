@@ -10,7 +10,8 @@ public class Enemy : MonoBehaviour
     private Vector3 finishPoint;
     [SerializeField]
     private NavMeshAgent navMesh;
-    private uint health;
+    private int health;
+   
    
    private void Awake()
     {
@@ -27,6 +28,14 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter(Collider col)
     {
         if(col.tag == "Finish")
+        {
+            Destroy(gameObject);
+        }
+    }
+    public void EnemyDamage(int damage)
+    {
+       health -= damage;
+        if(health <= 0 )
         {
             Destroy(gameObject);
         }

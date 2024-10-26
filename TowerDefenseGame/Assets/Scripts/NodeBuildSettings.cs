@@ -11,7 +11,7 @@ public class NodeBuildSettings : MonoBehaviour
         if(structure == null)
         {
             Vector3 position = new Vector3(transform.position.x, transform.position.y + hight, transform.position.z);
-            var newStructure = Instantiate(structurePref, position, Quaternion.identity);
+            structure = Instantiate(structurePref, position, Quaternion.identity);
         }
     }
     // Start is called before the first frame update

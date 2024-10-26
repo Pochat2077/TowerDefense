@@ -50,7 +50,7 @@ public class BulletScript : MonoBehaviour
         }
         if(col.tag == "Enemy")
         {
-            //col.GetComponent<Enemy>().GetDamage(damage);
+            col.GetComponent<Enemy>().EnemyDamage(damage);
             Destroy(gameObject);
             
         }

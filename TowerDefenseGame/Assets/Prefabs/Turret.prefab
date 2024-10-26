@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5612803615041318230}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: AmmoSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3209137031195343762}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: AmmoSpawner (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2498212065553268747}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,6 +150,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fc5a2d4b97d136a4fa7a9347e2d522c7, type: 3}
       propertyPath: m_Name
       value: Weapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fc5a2d4b97d136a4fa7a9347e2d522c7, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc5a2d4b97d136a4fa7a9347e2d522c7, type: 3}
@@ -268,6 +272,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d50da519fd9f0f5478dbcec8d1d9e88b, type: 3}
       propertyPath: m_Name
       value: base
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d50da519fd9f0f5478dbcec8d1d9e88b, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d50da519fd9f0f5478dbcec8d1d9e88b, type: 3}
