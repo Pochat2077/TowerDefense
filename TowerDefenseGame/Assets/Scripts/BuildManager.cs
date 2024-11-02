@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BuildManager : MonoBehaviour
 {
+    public static BuildManager Instance;
     [SerializeField]
     private LayerMask LayerMask;
     [SerializeField]
@@ -17,8 +18,16 @@ public class BuildManager : MonoBehaviour
     private bool canBuild;
     private int turrertIndex, cost;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         
     }
 
@@ -30,7 +39,7 @@ public class BuildManager : MonoBehaviour
 
         if(Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask))
         {
-            if(hit.collider.tag == "Node")
+            if(hit.collider.tag == "Node" && canBuild)
             {
                 var node = hit.collider.GetComponent<NodeBuildSettings>();
                 if(node.structure == null)
@@ -52,7 +61,14 @@ public class BuildManager : MonoBehaviour
         }
         if(Input.GetMouseButtonDown(0) && selectedNode != null)
         {
-            selectedNode.GetComponent<NodeBuildSettings>().StartBuild(turretPref, 0.35f);
+            selectedNode.GetComponent<NodeBuildSettings>().StartBuild(turretPref, 0.35f, cost, turrertIndex);
+            canBuild = false;
         }
+    }
+    public void SetBuildTurret(int cost, int buildIndex)
+    {
+        canBuild = true;
+        turrertIndex = buildIndex;
+        this.cost = cost;
     }
 }

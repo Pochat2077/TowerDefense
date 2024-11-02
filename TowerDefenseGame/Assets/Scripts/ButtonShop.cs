@@ -15,11 +15,18 @@ public class ButtonShop : MonoBehaviour
     [SerializeField]
     private Button button;
 
+    private void Awake()
+    {
+        costText.text = cost.ToString();
+        
+    }
+
     // Start is called before the first frame update
     private void Start()
     {
         costText.text = cost.ToString();
-        //button.onClick.AddListener();
+        var buildManager = BuildManager.Instance;
+        button.onClick.AddListener(() => buildManager.SetBuildTurret(cost, buildIndex));
     }
 
     // Update is called once per frame
@@ -27,8 +34,5 @@ public class ButtonShop : MonoBehaviour
     {
         
     }
-    private void SetBuildTurret(int cost, int buildIndex)
-    {
-
-    }
+   
 }

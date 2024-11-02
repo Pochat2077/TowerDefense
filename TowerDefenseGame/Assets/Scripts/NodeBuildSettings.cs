@@ -6,7 +6,7 @@ public class NodeBuildSettings : MonoBehaviour
 {
     public GameObject structure {get; private set;}
 
-    public void StartBuild(GameObject structurePref, float hight)
+    public void StartBuild(GameObject structurePref, float hight, int cost, int index)
     {
         if(structure == null)
         {

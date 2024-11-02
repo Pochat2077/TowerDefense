@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
+    private GameObject boomFxPref;
+    [SerializeField]
     private EnemyData enemyData;
     private Vector3 finishPoint;
     [SerializeField]
@@ -37,7 +39,12 @@ public class Enemy : MonoBehaviour
        health -= damage;
         if(health <= 0 )
         {
+            Instantiate(boomFxPref, new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), Quaternion.Euler(-90f, 0f, 0f));
             Destroy(gameObject);
         }
+    }
+    public void GetDamage()
+    {
+        
     }
 }

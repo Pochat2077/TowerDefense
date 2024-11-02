@@ -20,6 +20,8 @@ public class TurretScript : MonoBehaviour
     [SerializeField]
     private float range = 3f;
     private float turnSpeed = 10f;
+    [SerializeField]
+    private AudioSource audioSource;
 
     private List<Transform> targetsInRange = new List<Transform>();
 
@@ -50,6 +52,8 @@ public class TurretScript : MonoBehaviour
         if(IsTargetLocked())
         {
             GameObject bullet = Instantiate(bulletPref, gunBarrel [currentBarrelIndex]);
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
+            audioSource.Play();
         bulletPref.transform.parent = null;
 
         BulletScript bulletscript = bullet.GetComponent<BulletScript>();
