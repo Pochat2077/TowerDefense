@@ -9,6 +9,7 @@ public class BuildManager : MonoBehaviour
     private LayerMask LayerMask;
     [SerializeField]
     private GameObject turretPref;
+    
     [SerializeField] 
     private Color hoverColor;
     [SerializeField]
@@ -62,6 +63,7 @@ public class BuildManager : MonoBehaviour
         if(Input.GetMouseButtonDown(0) && selectedNode != null)
         {
             selectedNode.GetComponent<NodeBuildSettings>().StartBuild(turretPref, 0.35f, cost, turrertIndex);
+            
             canBuild = false;
         }
     }

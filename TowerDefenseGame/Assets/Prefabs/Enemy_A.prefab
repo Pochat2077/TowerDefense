@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4bc66de50193c04fb1383b15f1c6377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boomFxPref: {fileID: 7127868745970335531, guid: f529bada3a455854b949ebe2cb4b48cb, type: 3}
+  boomFxPref: {fileID: 4593184484909914552, guid: 2e1e9506f5904a64b81744324fb7cd50, type: 3}
   enemyData: {fileID: 11400000, guid: 3db63bc2bc900e749a1d299b08d37417, type: 2}
   navMesh: {fileID: 8195948613854214709}
 --- !u!54 &-5240789838418861278
