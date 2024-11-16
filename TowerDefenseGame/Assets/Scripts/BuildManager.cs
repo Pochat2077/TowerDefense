@@ -65,6 +65,7 @@ public class BuildManager : MonoBehaviour
             selectedNode.GetComponent<NodeBuildSettings>().StartBuild(turretPref, 0.35f, cost, turrertIndex);
             
             canBuild = false;
+            InterstitialAd.Instance.TowerWasBuilt();
         }
     }
     public void SetBuildTurret(int cost, int buildIndex)
