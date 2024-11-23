@@ -68,7 +68,7 @@ public class RewardsAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLis
    }
    private IEnumerator WaitBeforeShowingNextAd()
    {
-    yield return new WaitForSeconds(60);
+    yield return new WaitForSeconds(5);
     yield return new WaitUntil(() => isAdLoaded);
 
     /*while (!isAdLoaded)

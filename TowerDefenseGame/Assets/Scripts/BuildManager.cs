@@ -7,17 +7,16 @@ public class BuildManager : MonoBehaviour
     public static BuildManager Instance;
     [SerializeField]
     private LayerMask LayerMask;
-    [SerializeField]
-    private GameObject turretPref;
     
     [SerializeField] 
     private Color hoverColor;
     [SerializeField]
     private Color startColor;
     private GameObject selectedNode;
+    private TurretData currentTurretData;
 
     private bool canBuild;
-    private int turrertIndex, cost;
+    
     // Start is called before the first frame update
     void Awake()
     {
@@ -62,16 +61,16 @@ public class BuildManager : MonoBehaviour
         }
         if(Input.GetMouseButtonDown(0) && selectedNode != null)
         {
-            selectedNode.GetComponent<NodeBuildSettings>().StartBuild(turretPref, 0.35f, cost, turrertIndex);
+            selectedNode.GetComponent<NodeBuildSettings>().StartBuild(currentTurretData.turretPref,currentTurretData.spawnpoint , currentTurretData.cost, currentTurretData.index);
             
             canBuild = false;
             InterstitialAd.Instance.TowerWasBuilt();
         }
     }
-    public void SetBuildTurret(int cost, int buildIndex)
+    public void SetBuildTurret(TurretData turretData)
     {
         canBuild = true;
-        turrertIndex = buildIndex;
-        this.cost = cost;
+        currentTurretData = turretData;
+        
     }
 }
