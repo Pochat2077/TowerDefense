@@ -18,32 +18,33 @@ public class ButtonShop : MonoBehaviour
 
     private int turretCount;
 
-    private void Awake()
+
+    // Start is called before the first frame update
+    private void Start()
     {
         Init();
         
     }
 
-    // Start is called before the first frame update
-    private void Start()
-    {
-        var buildManager = BuildManager.Instance;
-        button.onClick.AddListener(() => buildManager.SetBuildTurret(turretdata));
-    }
-
     private void Init()
     {
+        var buildManager = BuildManager.Instance;
+        
         costText.text = turretdata.cost.ToString();
         image.sprite = turretdata.icon;
         turretCount = turretdata.maxCount;
-        CountText.text = $"{turretdata.maxCount}/{turretCount}";
+        CountText.text = $"{turretCount}/{turretdata.maxCount}";
+
+        buildManager.onBuild += ChangeCount;
+
+        button.onClick.AddListener(() => buildManager.SetBuildTurret(turretdata));
     }
 
     // Update is called once per frame
-   public void ChangeCount()
+   private void ChangeCount()
    {
     turretCount--;
-     CountText.text = $"{turretdata.maxCount}/{turretCount}";
+     CountText.text = $"{turretCount}/{turretdata.maxCount}";
      if(turretCount <= 0)
      {
         button.interactable = false;

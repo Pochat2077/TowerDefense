@@ -16,6 +16,8 @@ public class BuildManager : MonoBehaviour
     private TurretData currentTurretData;
 
     private bool canBuild;
+    public delegate void BuildHandler();
+    public event BuildHandler onBuild;
     
     // Start is called before the first frame update
     void Awake()
@@ -64,7 +66,8 @@ public class BuildManager : MonoBehaviour
             selectedNode.GetComponent<NodeBuildSettings>().StartBuild(currentTurretData.turretPref,currentTurretData.spawnpoint , currentTurretData.cost, currentTurretData.index);
             
             canBuild = false;
-            InterstitialAd.Instance.TowerWasBuilt();
+            //InterstitialAd.Instance.TowerWasBuilt();
+            onBuild.Invoke();
         }
     }
     public void SetBuildTurret(TurretData turretData)
